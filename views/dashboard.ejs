@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dashboard.css">
+    <title>Members Only</title>
+</head>
+<body>
+    <div class="super">
+        <div class="wrapper">
+            <header class="header container">
+                <div class="welcome-user">Welcome <%=userData.first_name + ' ' + userData.last_name + (userData.is_member ? ' (member)' : '') %></div>
+                <div class="home">Message Club</div>
+                <div class="links">
+                    <% if(!userData.is_member) { %>
+                    <a href="/membership-form" >Become a Member</a>
+                    <% } %>    
+                    <a href="/message-post-form">Write a message</a>
+                    <a href="/log-out">Log Out</a>
+                </div>
+            </header>
+        </div>
+
+        <div class="main container">
+           
+            
+
+            <div class="messages-container">
+                <% for (let i = 0; i < messages.length; i++) { %>
+                    <div class="message">
+                        <div class="message-header">
+                            <div class="message-username">
+                                <% if (userData.is_member) { %>
+                                    <%= names[i].full_name %>
+                                <% } else { %>
+                                    Anonymous
+                                <% } %>
+                            
+                            </div>
+                            <div class="message-date">
+                                <% if (userData.is_member) { %>
+                                    <% 
+                                    const date = new Date(messages[i].created_at);
+                                    const formattedDate = date.toDateString().slice(4);
+                                    %>
+                                    <%= formattedDate %>
+                                <% } else { %>
+                                    Date
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="message-body">
+                            <%=messages[i].message %>
+                        </div>
+                        <% if(userData.is_admin) { %>
+
+                            <button class="delete">
+                                <a class="delete-text" href="/delete-message?id=<%= messages[i].mess_id %>">Delete message</a>
+                            </button>
+
+                        <% } %>
+                    </div>
+                  <% } %>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container footer">@Members Only 2025</div>
+        </footer>
+    </div>
+
+</body>
+</html>

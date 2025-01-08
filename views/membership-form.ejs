@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dashboard.css">
+    <title>Members Only</title>
+</head>
+<body>
+    <div class="super">
+        <div class="wrapper">
+            <header class="header container">
+                <div class="welcome-user">Welcome <%=userData.first_name + ' ' + userData.last_name %></div>
+                <div class="home">Message Club</div>
+                <div class="links">
+                    <!-- <a href="/membership-form">Become a Member</a> -->
+                    <a href="/message-post-form">Write a message</a>
+                    <a href="/log-out">Log Out</a>
+                </div>
+            </header>
+        </div>
+
+        <div class="main container form">
+            <h4>Enter the secret password</h4>
+            <%- include("../Partials/errors.ejs") %>
+            <form action="/membership-form" method="post">
+                
+                <input type="password" name="memberPassword" class="memberPassword">
+                <div style="margin-top: 1rem;">
+                    <button class="join" type="submit">Submit</button>
+                    <button class="join" type="submit" name="action" value="cancel" formnovalidate>Cancel</button>
+                </div>
+            </form>
+
+        </div>
+
+        <footer>
+            <div class="container footer">@Members Only 2025</div>
+        </footer>
+    </div>
+
+    <!-- <script src="/script.js"></script> -->
+</body>
+</html>

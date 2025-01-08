@@ -1,0 +1,22 @@
+<% if (locals.errors) {%>
+    
+    <ul class="list-errors">
+      <% errors.forEach(function(error) { %>
+        <% if(error.path == 'password') { %>
+            <% 
+                const messageList = error.msg.split('. ').filter(msg => msg.trim().length > 0); // Split into array and remove any empty strings
+            %>
+            <% messageList.forEach(msg => { %>
+                <li><%= msg.endsWith('.') ? msg : msg + '.' %></li>
+            <% }) %>
+        <% } %>
+
+        <% if(!(error.path == 'password')){ %>
+            <li><%= error.msg %></li>
+        <% } %>
+      <% }); %>
+    </ul>
+    
+    <%- console.log(errors) %>
+    
+<% } %>

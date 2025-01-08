@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/welcome.css">
+    <title>Members Only</title>
+</head>
+<body>
+    <div class="super">
+        <header class="header">
+            <div class="container welcome">Message Club</div>
+        </header>
+
+        <div class="main container">
+            <h4>Write your message anonymously</h4>
+                <%- include("../Partials/errors.ejs") %>
+                <form action="/message-post-form" method="post">
+                    <textarea type="text" name="message" placeholder="Your message..." required value="" rows="10" cols="10" ></textarea>
+                    
+                    <div style="margin-top: 1rem;">
+                        <button class="join" type="submit">Submit</button>
+                        <button class="join" type="submit" name="action" value="cancel" formnovalidate>Cancel</button>
+                    </div>
+                </form>
+        </div>
+
+        <footer>
+            <div class="container footer">@Members Only 2025</div>
+        </footer>
+    </div>
+
+    <!-- <script src="/script.js"></script> -->
+</body>
+</html>

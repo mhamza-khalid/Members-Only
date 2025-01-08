@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/welcome.css">
+    <title>Members Only</title>
+</head>
+<body>
+    <div class="super">
+        <header class="header">
+            <div class="container welcome">Message Club</div>
+        </header>
+
+        <div class="main container">
+            <div class="wel">Welcome to the Secret Message Club</div>
+            <div class="text">This is a members-only message club where you log in anonymously to share your thoughts and connect with others. Post messages without revealing your identity and see what others have to say — all in a safe and welcoming space.
+            Alas, but super members will be able to see all the message creators.
+            </div>
+            
+            <% if(!locals.signIn && !locals.signUp) { %>
+            <form action="/sign-in-display" method="post">
+                <button class="join" type="submit" name="action" value="sign">Sign in</button>
+            </form>
+            <% } %>
+
+            <% if(locals.signUp == 'ok') { %>
+                <h3>Sign Up</h3>
+                <%- include("../Partials/errors.ejs") %>
+                <form action="/sign-up-request" method="post">
+                    <input type="text" name="first_name" placeholder="First name" required value="<%= userData.first_name %>">
+                    <input type="text" name="last_name" placeholder="Last name" required value="<%= userData.last_name %>">
+                    <input type="email" name="email" placeholder="Email" required value="<%= userData.email %>">
+                    <input type="password" name="password" placeholder="Password" required value="<%= userData.password %>">
+                    <input type="password" name="confirm_password" placeholder="Confirm password" required value="<%= userData.confirm_password %>">
+                    <div>
+                        <input type="checkbox" id="isAdmin" name="isAdmin" class="checkbox" <%= userData.isAdmin ? 'checked' : '' %>/>
+                        <label class="isAdmin" for="isAdmin">Become an admin?</label>
+                    </div>
+
+                    <div>
+                        <button class="join" type="submit" name="action" value="signing-up">Sign Up</button>
+                        <button class="join" type="submit" name="action" value="cancel" formnovalidate>Cancel</button>
+                    </div>
+                </form>
+            <% } %>
+
+            <% if(locals.signIn == 'ok') { %>
+                <h3>Sign in</h3>
+
+                <div class="success"><%= message %></div>
+                <% if(locals.errorMessage) { %>
+                    <div class="failure"><%= errorMessage %></div>
+                <% } %>    
+                <form action="/sign-in-request" method="post">
+                    
+                    <input type="email" name="email" class="email-input" placeholder="Email" required>
+                    <input type="password" name="password" class="password-input" placeholder="Password" required>
+                    <div>
+                        <button class="join" type="submit">Sign in</button>
+                        <button class="join" type="submit" name="action" value="cancel" formnovalidate>Cancel</button>
+                    </div>
+
+                    <button class="sign-up" type="submit" name="action" value="sign-up" formnovalidate>Don't have an account? Sign Up</button> 
+                </form>
+            <% } %>
+
+        </div>
+
+        <footer>
+            <div class="container footer">@Members Only 2025</div>
+        </footer>
+    </div>
+
+    <!-- <script src="/script.js"></script> -->
+</body>
+</html>
+
+
+<!-- style="display: flex; gap: 0.2rem; margin-top: 0.5rem; -->
